@@ -111,7 +111,7 @@ namespace SysBot.Pokemon.WinForms
 
         private void ConfigureButtonAppearance()
         {
-            btnActions.Text = "\u27a4 BOT MENU";
+            btnActions.Text = "\u27a4 机器人菜单";
             btnActions.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnActions.ForeColor = Color.White;
             btnActions.FlatStyle = FlatStyle.Flat;
@@ -155,28 +155,28 @@ namespace SysBot.Pokemon.WinForms
                 switch (cmd)
                 {
                     case BotControlCommand.Start:
-                        item.Text = "▶  Start";
+                        item.Text = "▶  启动";
                         break;
                     case BotControlCommand.Stop:
-                        item.Text = "■  Stop";
+                        item.Text = "■  停止";
                         break;
                     case BotControlCommand.Idle:
-                        item.Text = "❚❚  Idle";
+                        item.Text = "❚❚  空闲";
                         break;
                     case BotControlCommand.Resume:
                         item.Text = "⏵  Resume";
                         break;
                     case BotControlCommand.Restart:
-                        item.Text = "↻  Restart";
+                        item.Text = "↻  重启";
                         break;
                     case BotControlCommand.RebootAndStop:
-                        item.Text = "⚡  Reboot & Stop";
+                        item.Text = "⚡  重启/停止";
                         break;
                     case BotControlCommand.ScreenOnAll:
-                        item.Text = "☀  Screen On";
+                        item.Text = "☀  开启屏幕";
                         break;
                     case BotControlCommand.ScreenOffAll:
-                        item.Text = "🌙  Screen Off";
+                        item.Text = "🌙  关闭屏幕";
                         break;
                 }
 

@@ -191,9 +191,9 @@ namespace SysBot.Pokemon.WinForms
             EnableDoubleBuffering(navButtonsPanel);
 
             // Configure Cuztom-style nav buttons with neon accents
-            ConfigureNavButton(btnNavBots, "BOTS", 0, "Manage bot connections", Color.FromArgb(57, 255, 221)); // Neon cyan
-            ConfigureNavButton(btnNavHub, "CONFIGURATION", 1, "System settings", Color.FromArgb(255, 0, 255)); // Neon magenta
-            ConfigureNavButton(btnNavLogs, "SYSTEM LOGS", 2, "View activity logs", Color.FromArgb(255, 165, 0)); // Neon orange
+            ConfigureNavButton(btnNavBots, "机器人", 0, "Manage bot connections", Color.FromArgb(57, 255, 221)); // Neon cyan
+            ConfigureNavButton(btnNavHub, "配置", 1, "System settings", Color.FromArgb(255, 0, 255)); // Neon magenta
+            ConfigureNavButton(btnNavLogs, "日志", 2, "View activity logs", Color.FromArgb(255, 165, 0)); // Neon orange
 
             var separator = new Panel();
             separator.BackColor = Color.FromArgb(32, 38, 48);
@@ -202,7 +202,7 @@ namespace SysBot.Pokemon.WinForms
             navButtonsPanel.Controls.Add(separator);
 
             var btnTray = new Button();
-            ConfigureNavButton(btnTray, "SEND TO TRAY", 3, "Minimize to system tray", Color.FromArgb(102, 192, 244));
+            ConfigureNavButton(btnTray, "发送到托盘", 3, "Minimize to system tray", Color.FromArgb(102, 192, 244));
             btnTray.Click += BtnTray_Click;
             navButtonsPanel.Controls.Add(btnTray);
 
@@ -292,7 +292,7 @@ namespace SysBot.Pokemon.WinForms
             titleLabel.Location = new Point(20, 18);
             titleLabel.Name = "titleLabel";
             titleLabel.TabIndex = 0;
-            titleLabel.Text = "Bot Management";
+            titleLabel.Text = "机器人管理";
             titleLabel.MaximumSize = new Size(350, 35);
             titleLabel.AutoEllipsis = true;
 
@@ -311,9 +311,9 @@ namespace SysBot.Pokemon.WinForms
             controlButtonsPanel.WrapContents = false;
 
             // Modern control buttons with clean design
-            ConfigureEnhancedControlButton(btnStart, "START", Color.FromArgb(90, 186, 71), "▶");
-            ConfigureEnhancedControlButton(btnStop, "STOP", Color.FromArgb(236, 98, 95), "■");
-            ConfigureEnhancedControlButton(btnReboot, "RESTART", Color.FromArgb(102, 192, 244), "↻");
+            ConfigureEnhancedControlButton(btnStart, "全部启动", Color.FromArgb(90, 186, 71), "▶");
+            ConfigureEnhancedControlButton(btnStop, "全部停止", Color.FromArgb(236, 98, 95), "■");
+            ConfigureEnhancedControlButton(btnReboot, "重启", Color.FromArgb(102, 192, 244), "↻");
 
             btnStart.Click += B_Start_Click;
             btnStop.Click += B_Stop_Click;

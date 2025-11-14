@@ -63,7 +63,7 @@ namespace SysBot.Pokemon.WinForms
             buttonDownload.Location = new Point(buttonX, buttonY);
             if (string.IsNullOrEmpty(buttonDownload.Text))
             {
-                buttonDownload.Text = "Download Update";
+                buttonDownload.Text = "下载更新";
             }
             buttonDownload.Click += ButtonDownload_Click;
 
@@ -99,11 +99,11 @@ namespace SysBot.Pokemon.WinForms
         {
             if (isUpdateAvailable)
             {
-                Text = $"Update Available ({newVersion})";
+                Text = $"有可用更新 ({newVersion})";
             }
             else
             {
-                Text = "Re-Download Latest Version";
+                Text = "重新下载最新版本";
             }
         }
 
@@ -136,7 +136,7 @@ namespace SysBot.Pokemon.WinForms
         private async void ButtonDownload_Click(object? sender, EventArgs? e)
         {
             buttonDownload.Enabled = false;
-            buttonDownload.Text = "Downloading...";
+            buttonDownload.Text = "下载中...";
 
             try
             {
