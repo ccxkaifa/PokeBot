@@ -13,10 +13,10 @@ public sealed class PokeTradeHubConfig : BaseConfig
 
     private const string Integration = nameof(Integration);
     // 修复：补充 Operation 常量定义（原代码缺失导致编译报错）
-    private const string Operation = nameof(Operation);
+    private new const string Operation = nameof(Operation);
 
     [Category(BotTrade), Description("Name of the Discord Bot the Program is Running. This will Title the window for easier recognition. Requires program restart.")]
-    [DisplayName("Discord机器人名称")]
+    [DisplayName("机器人名称")]
     public string BotName { get; set; } = string.Empty;
 
     [Category(Integration)]
