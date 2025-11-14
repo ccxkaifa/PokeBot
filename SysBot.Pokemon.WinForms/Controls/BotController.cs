@@ -164,7 +164,7 @@ namespace SysBot.Pokemon.WinForms
                         item.Text = "❚❚  空闲";
                         break;
                     case BotControlCommand.Resume:
-                        item.Text = "⏵  Resume";
+                        item.Text = "⏵  恢复运行";
                         break;
                     case BotControlCommand.Restart:
                         item.Text = "↻  重启";
@@ -563,52 +563,43 @@ namespace SysBot.Pokemon.WinForms
         }
 
         public string ReadBotState()
+{
+    try
+    {
+        var botSource = GetBot();
+        if (botSource is null)
+            return "❌ 错误（Bot源为空）";
+        var bot = botSource.Bot;
+        if (bot is null)
+            return "❌ 错误（Bot实例为空）";
+        if (!botSource.IsRunning)
+            return "⏹️ 已停止";
+        if (botSource.IsStopping)
+            return "🔄 正在停止";
+        if (botSource.IsPaused)
         {
-            try
-            {
-                var botSource = GetBot();
-                if (botSource is null)
-                    return "ERROR";
-
-                var bot = botSource.Bot;
-                if (bot is null)
-                    return "ERROR";
-
-                if (!botSource.IsRunning)
-                    return "STOPPED";
-
-                if (botSource.IsStopping)
-                    return "STOPPING";
-
-                if (botSource.IsPaused)
-                {
-                    if (bot.Config?.CurrentRoutineType != PokeRoutineType.Idle)
-                        return "IDLING";
-                    else
-                        return "IDLE";
-                }
-
-                if (botSource.IsRunning && !bot.Connection.Connected)
-                    return "REBOOTING";
-
-                var cfg = bot.Config;
-                if (cfg == null)
-                    return "UNKNOWN";
-
-                if (cfg.CurrentRoutineType == PokeRoutineType.Idle)
-                    return "IDLE";
-
-                if (botSource.IsRunning && bot.Connection.Connected)
-                    return cfg.CurrentRoutineType.ToString();
-
-                return "UNKNOWN";
-            }
-            catch (Exception ex)
-            {
-                LogUtil.LogError($"Error reading bot state: {ex.Message}", "BotController");
-                return "ERROR";
-            }
+            if (bot.Config?.CurrentRoutineType != PokeRoutineType.Idle)
+                return "🌙 正在闲置中";
+            else
+                return "🌑 闲置";
         }
+        if (botSource.IsRunning && !bot.Connection.Connected)
+            return "🔄 正在重启（未连接）";
+        var cfg = bot.Config;
+        if (cfg == null)
+            return "❓ 未知状态（配置为空）";
+        if (cfg.CurrentRoutineType == PokeRoutineType.Idle)
+            return "🌑 闲置";
+        if (botSource.IsRunning && bot.Connection.Connected)
+            return $"✅ 运行中 - {cfg.CurrentRoutineType.ToString()}";
+        return "❓ 未知状态";
+    }
+    catch (Exception ex)
+    {
+        LogUtil.LogError($"Error reading bot state: {ex.Message}", "BotController");
+        return "❌ 错误（读取状态异常）";
+    }
+}
 
         public BotSource<PokeBotState>? GetBot()
         {
