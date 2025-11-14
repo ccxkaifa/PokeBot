@@ -6,20 +6,20 @@ public class SeedCheckSettings
 {
     private const string FeatureToggle = nameof(FeatureToggle);
 
-    [Category(FeatureToggle), Description("Allows returning only the closest shiny frame, the first star and square shiny frames, or the first three shiny frames.")]
+    [Category(FeatureToggle), Description("允许仅返回最近的闪光帧、第一个普通闪光帧和方形闪光帧，或前三个闪光帧。")]
     public SeedCheckResults ResultDisplayMode { get; set; }
 
-    [Category(FeatureToggle), Description("When enabled, seed checks will return all possible seed results instead of the first valid match.")]
+    [Category(FeatureToggle), Description("启用后，种子检查将返回所有可能的种子结果，而非第一个有效匹配项。")]
     public bool ShowAllZ3Results { get; set; }
 
-    public override string ToString() => "Seed Check Settings";
+    public override string ToString() => "种子检查设置";
 }
 
 public enum SeedCheckResults
 {
-    ClosestOnly,            // Only gets the first shiny
+    ClosestOnly,            // 仅获取第一个闪光帧
 
-    FirstStarAndSquare,     // Gets the first star shiny and first square shiny
+    FirstStarAndSquare,     // 获取第一个普通闪光帧和第一个方形闪光帧
 
-    FirstThree,             // Gets the first three frames
+    FirstThree,             // 获取前三个闪光帧
 }

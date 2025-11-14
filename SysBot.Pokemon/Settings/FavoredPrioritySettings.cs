@@ -19,22 +19,25 @@ public class FavoredPrioritySettings : IFavoredCPQSetting
     private int _skipPercentage = 50;
     private int _minimumRegularUsersFirst = 3;
 
-    [Category(Operation), Description("Enable or disable priority user favoritism. When disabled, all users are treated equally.")]
+    [Category(Operation), Description("启用或禁用优先用户偏袒机制.禁用时,所有用户将被平等对待.")]
+    [DisplayName("是否启用优待")]
     public bool EnableFavoritism { get; set; } = true;
 
-    [Category(Configure), Description("Percentage of regular users that priority users can skip (0-100). For example: 50% means a priority user joins halfway through the regular users in queue. Higher percentage = more favorable to priority users.")]
+    [Category(Configure), Description("优先用户可跳过的普通用户比例(0-100).例如：50% 意味着优先用户会排在队列中普通用户的中间位置.比例越高,对优先用户越有利.")]
+    [DisplayName("可跳过比例")]
     public int SkipPercentage
     {
         get => _skipPercentage;
         set => _skipPercentage = Math.Clamp(value, MinSkipPercentage, MaxSkipPercentage);
     }
 
-    [Category(Configure), Description("Minimum number of regular users that must be processed before any priority user can skip ahead. This prevents priority users from completely blocking regular users, even in large queues.")]
+    [Category(Configure), Description("在任何优先用户可以插队之前,必须处理的普通用户的最小数量.这可以防止优先用户完全阻挡普通用户,即便是在长队列中也是如此.")]
+    [DisplayName("最小非优先用户数量")]
     public int MinimumRegularUsersFirst
     {
         get => _minimumRegularUsersFirst;
         set => _minimumRegularUsersFirst = Math.Max(MinRegularUsers, value);
     }
 
-    public override string ToString() => "Favoritism Settings";
+    public override string ToString() => "优先待遇设置";
 }

@@ -4,16 +4,12 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
-
 namespace SysBot.Pokemon;
-
 public class StreamSettings
 {
     private const string Operation = nameof(Operation);
-
-    private static readonly byte[] BlackPixel = // 1x1 black pixel
+    private static readonly byte[] BlackPixel = // 1x1 黑色像素
     [
         0x42, 0x4D, 0x3A, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x28, 0x00,
@@ -24,107 +20,137 @@ public class StreamSettings
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00,
     ];
-
     public static Action<PKM, string>? CreateSpriteFile { get; set; }
 
-    [Category(Operation), Description("Format to display the Completed Trades. {0} = Count")]
-    public string CompletedTradesFormat { get; set; } = "Completed Trades: {0}";
+    [Category(Operation), Description("已完成交易的显示格式。{0} = 计数")]
+    [DisplayName("已完成交易显示格式")]
+    public string CompletedTradesFormat { get; set; } = "已完成交易数：{0}";
 
-    [Category(Operation), Description("Copies the TradeBlockFile if it exists, otherwise, a placeholder image is copied instead.")]
+    [Category(Operation), Description("如果交易区块文件存在则复制，否则复制占位图。")]
+    [DisplayName("复制交易区块图片")]
     public bool CopyImageFile { get; set; } = true;
 
-    [Category(Operation), Description("Generate stream assets; turning off will prevent generation of assets.")]
+    [Category(Operation), Description("生成直播资源；关闭后将停止生成资源。")]
+    [DisplayName("启用直播资源生成")]
     public bool CreateAssets { get; set; }
 
-    [Category(Operation), Description("Create a file indicating the count of completed trades when a new trade starts.")]
+    [Category(Operation), Description("新交易开始时，创建文件标识已完成交易数。")]
+    [DisplayName("生成已完成交易数文件")]
     public bool CreateCompletedTrades { get; set; } = true;
 
-    [Category(Operation), Description("Create a file listing the estimated amount of time a user will have to wait if they joined the queue.")]
+    [Category(Operation), Description("创建文件列出用户加入队列后的预计等待时间。")]
+    [DisplayName("生成预计等待时间文件")]
     public bool CreateEstimatedTime { get; set; } = true;
 
-    [Category(Operation), Description("Generate a list of People currently on-deck.")]
+    [Category(Operation), Description("生成当前待处理用户列表（第一组）。")]
+    [DisplayName("生成待处理列表（第一组）")]
     public bool CreateOnDeck { get; set; } = true;
 
-    [Category(Operation), Description("Generate a list of People currently on-deck #2.")]
+    [Category(Operation), Description("生成当前待处理用户列表（第二组）。")]
+    [DisplayName("生成待处理列表（第二组）")]
     public bool CreateOnDeck2 { get; set; } = true;
 
-    [Category(Operation), Description("Generate trade start details, indicating who the bot is trading with.")]
+    [Category(Operation), Description("生成交易开始详情，标识机器人正在与谁交易。")]
+    [DisplayName("生成交易对象详情")]
     public bool CreateTradeStart { get; set; } = true;
 
-    [Category(Operation), Description("Generate trade start details, indicating what the bot is trading.")]
+    [Category(Operation), Description("生成交易开始详情，标识机器人正在交易的内容。")]
+    [DisplayName("生成交易内容精灵图")]
     public bool CreateTradeStartSprite { get; set; } = true;
 
-    [Category(Operation), Description("Generate a list of People currently being traded.")]
+    [Category(Operation), Description("生成当前正在交易的用户列表。")]
+    [DisplayName("生成交易中用户列表")]
     public bool CreateUserList { get; set; } = true;
 
-    [Category(Operation), Description("Create a file indicating the count of users in the queue.")]
+    [Category(Operation), Description("创建文件标识队列中的用户数。")]
+    [DisplayName("生成队列用户数文件")]
     public bool CreateUsersInQueue { get; set; } = true;
 
-    [Category(Operation), Description("Create a file listing the amount of time the most recently dequeued user has waited.")]
+    [Category(Operation), Description("创建文件列出最近退出队列用户的等待时长。")]
+    [DisplayName("生成最近用户等待时长文件")]
     public bool CreateWaitedTime { get; set; } = true;
 
-    [Category(Operation), Description("Format to display the Estimated Wait Timestamp.")]
+    [Category(Operation), Description("预计完成时间戳的显示格式。")]
+    [DisplayName("预计完成时间戳格式")]
     public string EstimatedFulfillmentFormat { get; set; } = @"hh\:mm\:ss";
 
-    // Estimated Time
-    [Category(Operation), Description("Format to display the Estimated Wait Time.")]
-    public string EstimatedTimeFormat { get; set; } = "Estimated time: {0:F1} minutes";
+    // 预计时间
+    [Category(Operation), Description("预计等待时间的显示格式。")]
+    [DisplayName("预计等待时间显示格式")]
+    public string EstimatedTimeFormat { get; set; } = "预计等待时间：{0:F1} 分钟";
 
-    [Category(Operation), Description("Format to display the on-deck list users. {0} = ID, {3} = User")]
-    public string OnDeckFormat { get; set; } = "(ID {0}) - {3}";
+    [Category(Operation), Description("待处理列表（第一组）用户的显示格式。{0} = ID，{3} = 用户")]
+    [DisplayName("待处理列表（第一组）显示格式")]
+    public string OnDeckFormat { get; set; } = "（ID {0}）- {3}";
 
-    [Category(Operation), Description("Format to display the on-deck #2 list users. {0} = ID, {3} = User")]
-    public string OnDeckFormat2 { get; set; } = "(ID {0}) - {3}";
+    [Category(Operation), Description("待处理列表（第二组）用户的显示格式。{0} = ID，{3} = 用户")]
+    [DisplayName("待处理列表（第二组）显示格式")]
+    public string OnDeckFormat2 { get; set; } = "（ID {0}）- {3}";
 
-    [Category(Operation), Description("Separator to split the on-deck list users.")]
+    [Category(Operation), Description("待处理列表（第一组）用户的分隔符。")]
+    [DisplayName("待处理列表（第一组）分隔符")]
     public string OnDeckSeparator { get; set; } = "\n";
 
-    [Category(Operation), Description("Separator to split the on-deck #2 list users.")]
+    [Category(Operation), Description("待处理列表（第二组）用户的分隔符。")]
+    [DisplayName("待处理列表（第二组）分隔符")]
     public string OnDeckSeparator2 { get; set; } = "\n";
 
-    [Category(Operation), Description("Number of on-deck users to skip at the top. If you want to hide people being processed, set this to your number of consoles.")]
+    [Category(Operation), Description("待处理列表（第一组）顶部跳过的用户数。若要隐藏正在处理的用户，设置为你的主机数量即可。")]
+    [DisplayName("待处理列表（第一组）顶部跳过数")]
     public int OnDeckSkip { get; set; }
 
-    [Category(Operation), Description("Number of on-deck #2 users to skip at the top. If you want to hide people being processed, set this to your number of consoles.")]
+    [Category(Operation), Description("待处理列表（第二组）顶部跳过的用户数。若要隐藏正在处理的用户，设置为你的主机数量即可。")]
+    [DisplayName("待处理列表（第二组）顶部跳过数")]
     public int OnDeckSkip2 { get; set; }
 
-    // On Deck
-    [Category(Operation), Description("Number of users to show in the on-deck list.")]
+    // 待处理列表（第一组）
+    [Category(Operation), Description("待处理列表（第一组）显示的用户数。")]
+    [DisplayName("待处理列表（第一组）显示数量")]
     public int OnDeckTake { get; set; } = 5;
 
-    // On Deck 2
-    [Category(Operation), Description("Number of users to show in the on-deck #2 list.")]
+    // 待处理列表（第二组）
+    [Category(Operation), Description("待处理列表（第二组）显示的用户数。")]
+    [DisplayName("待处理列表（第二组）显示数量")]
     public int OnDeckTake2 { get; set; } = 5;
 
-    // TradeCodeBlock
-    [Category(Operation), Description("Source File name of the image to be copied when a trade code is being entered. If left empty, will create a placeholder image.")]
+    // 交易代码区块
+    [Category(Operation), Description("输入交易代码时要复制的图片源文件名。若留空，将创建占位图。")]
+    [DisplayName("交易代码区块图片源文件")]
     public string TradeBlockFile { get; set; } = string.Empty;
 
-    [Category(Operation), Description("Destination file name of the Link Code blocking image. {0} gets replaced with the local IP address.")]
-    public string TradeBlockFormat { get; set; } = "block_{0}.png";
+    [Category(Operation), Description("链接代码屏蔽图片的目标文件名。{0} 将替换为本地IP地址。")]
+    [DisplayName("屏蔽图片目标文件名格式")]
+    public string TradeBlockFormat { get; set; } = "屏蔽_{0}.png";
 
-    [Category(Operation), Description("Format to display the Now Trading details. {0} = ID, {1} = User")]
-    public string TrainerTradeStart { get; set; } = "(ID {0}) {1}";
+    [Category(Operation), Description("当前交易详情的显示格式。{0} = ID，{1} = 用户")]
+    [DisplayName("当前交易详情显示格式")]
+    public string TrainerTradeStart { get; set; } = "（ID {0}）{1}";
 
-    [Category(Operation), Description("Format to display the list users. {0} = ID, {3} = User")]
-    public string UserListFormat { get; set; } = "(ID {0}) - {3}";
+    [Category(Operation), Description("用户列表的显示格式。{0} = ID，{3} = 用户")]
+    [DisplayName("用户列表显示格式")]
+    public string UserListFormat { get; set; } = "（ID {0}）- {3}";
 
-    [Category(Operation), Description("Separator to split the list users.")]
-    public string UserListSeparator { get; set; } = ", ";
+    [Category(Operation), Description("用户列表的分隔符。")]
+    [DisplayName("用户列表分隔符")]
+    public string UserListSeparator { get; set; } = "，";
 
-    [Category(Operation), Description("Number of users to skip at the top. If you want to hide people being processed, set this to your number of consoles.")]
+    [Category(Operation), Description("用户列表顶部跳过的用户数。若要隐藏正在处理的用户，设置为你的主机数量即可。")]
+    [DisplayName("用户列表顶部跳过数")]
     public int UserListSkip { get; set; }
 
-    // User List
-    [Category(Operation), Description("Number of users to show in the list.")]
+    // 用户列表
+    [Category(Operation), Description("用户列表显示的用户数。")]
+    [DisplayName("用户列表显示数量")]
     public int UserListTake { get; set; } = -1;
 
-    // Users in Queue
-    [Category(Operation), Description("Format to display the Users in Queue. {0} = Count")]
-    public string UsersInQueueFormat { get; set; } = "Users in Queue: {0}";
+    // 队列中用户数
+    [Category(Operation), Description("队列中用户数的显示格式。{0} = 计数")]
+    [DisplayName("队列用户数显示格式")]
+    public string UsersInQueueFormat { get; set; } = "队列中用户数：{0}";
 
-    // Waited Time
-    [Category(Operation), Description("Format to display the Waited Time for the most recently dequeued user.")]
+    // 等待时长
+    [Category(Operation), Description("最近退出队列用户等待时长的显示格式。")]
+    [DisplayName("等待时长显示格式")]
     public string WaitedTimeFormat { get; set; } = @"hh\:mm\:ss";
 
     public void EndEnterCode(PokeRoutineExecutorBase b)
@@ -145,7 +171,6 @@ public class StreamSettings
     {
         if (!CreateAssets)
             return;
-
         try
         {
             foreach (var file in Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*", SearchOption.TopDirectoryOnly))
@@ -153,22 +178,21 @@ public class StreamSettings
                 if (file.Contains(b.Connection.Name))
                     File.Delete(file);
             }
-
             if (CreateWaitedTime)
                 File.WriteAllText("waited.txt", "00:00:00");
             if (CreateEstimatedTime)
             {
-                File.WriteAllText("estimatedTime.txt", "Estimated time: 0 minutes");
+                File.WriteAllText("estimatedTime.txt", "预计等待时间：0 分钟");
                 File.WriteAllText("estimatedTimestamp.txt", "");
             }
             if (CreateOnDeck)
-                File.WriteAllText("ondeck.txt", "Waiting...");
+                File.WriteAllText("ondeck.txt", "等待中...");
             if (CreateOnDeck2)
-                File.WriteAllText("ondeck2.txt", "Queue is empty!");
+                File.WriteAllText("ondeck2.txt", "队列为空！");
             if (CreateUserList)
-                File.WriteAllText("users.txt", "None");
+                File.WriteAllText("users.txt", "无");
             if (CreateUsersInQueue)
-                File.WriteAllText("queuecount.txt", "Users in Queue: 0");
+                File.WriteAllText("queuecount.txt", "队列中用户数：0");
         }
         catch (Exception e)
         {
@@ -180,7 +204,6 @@ public class StreamSettings
     {
         if (!CreateAssets)
             return;
-
         try
         {
             var file = GetBlockFileName(b);
@@ -195,12 +218,11 @@ public class StreamSettings
         }
     }
 
-    // Completed Trades
+    // 已完成交易
     public void StartTrade<T>(PokeRoutineExecutorBase b, PokeTradeDetail<T> detail, PokeTradeHub<T> hub) where T : PKM, new()
     {
         if (!CreateAssets)
             return;
-
         try
         {
             if (CreateTradeStart)
@@ -228,7 +250,7 @@ public class StreamSettings
         }
     }
 
-    public override string ToString() => "Stream Settings";
+    public override string ToString() => "直播设置";
 
     private static void GenerateBotSprite<T>(PokeRoutineExecutorBase b, PokeTradeDetail<T> detail) where T : PKM, new()
     {
@@ -257,12 +279,10 @@ public class StreamSettings
     {
         var count = hub.Queues.Info.Count;
         var estimate = hub.Config.Queues.EstimateDelay(count, hub.Bots.Count);
-
-        // Minutes
+        // 分钟数
         var wait = string.Format(EstimatedTimeFormat, estimate);
         File.WriteAllText("estimatedTime.txt", wait);
-
-        // Expected to be fulfilled at this time
+        // 预计完成时间
         var now = DateTime.Now;
         var difference = now.AddMinutes(estimate);
         var date = difference.ToString(EstimatedFulfillmentFormat);
@@ -272,14 +292,14 @@ public class StreamSettings
     private void GenerateOnDeck<T>(PokeTradeHub<T> hub) where T : PKM, new()
     {
         var ondeck = hub.Queues.Info.GetUserList(OnDeckFormat);
-        ondeck = ondeck.Skip(OnDeckSkip).Take(OnDeckTake); // filter down
+        ondeck = ondeck.Skip(OnDeckSkip).Take(OnDeckTake); // 筛选
         File.WriteAllText("ondeck.txt", string.Join(OnDeckSeparator, ondeck));
     }
 
     private void GenerateOnDeck2<T>(PokeTradeHub<T> hub) where T : PKM, new()
     {
         var ondeck = hub.Queues.Info.GetUserList(OnDeckFormat2);
-        ondeck = ondeck.Skip(OnDeckSkip2).Take(OnDeckTake2); // filter down
+        ondeck = ondeck.Skip(OnDeckSkip2).Take(OnDeckTake2); // 筛选
         File.WriteAllText("ondeck2.txt", string.Join(OnDeckSeparator2, ondeck));
     }
 
@@ -288,7 +308,7 @@ public class StreamSettings
         var users = hub.Queues.Info.GetUserList(UserListFormat);
         users = users.Skip(UserListSkip);
         if (UserListTake > 0)
-            users = users.Take(UserListTake); // filter down
+            users = users.Take(UserListTake); // 筛选
         File.WriteAllText("users.txt", string.Join(UserListSeparator, users));
     }
 

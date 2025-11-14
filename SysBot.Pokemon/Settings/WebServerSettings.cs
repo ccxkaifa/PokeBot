@@ -10,14 +10,17 @@ public sealed class WebServerSettings
     private const string WebServer = nameof(WebServer);
     
     [Category(WebServer)]
-    [Description("The port number for the Bot Control Panel web interface. Default is 8080.")]
+    [Description("机器人控制面板网页界面的端口号.默认值为8080.")]
+    [DisplayName("控制面板端口")]
     public int ControlPanelPort { get; set; } = 8080;
     
     [Category(WebServer)]
-    [Description("Enable or disable the web control panel. When disabled, the web interface will not be accessible.")]
+    [Description("启用或禁用Web控制面板.禁用时,Web界面将无法访问.")]
+    [DisplayName("是否启用Web服务器")]
     public bool EnableWebServer { get; set; } = true;
     
     [Category(WebServer)]
-    [Description("Allow external connections to the web control panel. When false, only localhost connections are allowed.")]
+    [Description("允许外部连接到 Web 控制面板，当为 false 时，仅允许本地主机连接.")]
+    [DisplayName("是否允许外部连接")]
     public bool AllowExternalConnections { get; set; } = false;
 }
