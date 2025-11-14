@@ -156,7 +156,7 @@ namespace SysBot.Pokemon.WinForms
                 }
                 catch (Exception ex) when (ex is JsonException || ex is NotSupportedException)
                 {
-                    LogUtil.LogError($"配置文件已损坏：{ex.Message}。正在尝试从备份中恢复配置.");
+                    LogUtil.LogError($"Config file is corrupted: {ex.Message}. Attempting to recover from backup.", "Config");
 
                     // Try to recover from backup
                     var backupPath = Program.ConfigPath + ".bak";
@@ -169,7 +169,7 @@ namespace SysBot.Pokemon.WinForms
 
                             // Restore the main config from backup
                             File.Copy(backupPath, Program.ConfigPath, true);
-                            LogUtil.LogInfo("Config", "从备份中成功恢复了配置.");
+                            LogUtil.LogInfo("Config", "Successfully recovered configuration from backup.");
 
                             LogConfig.MaxArchiveFiles = Config.Hub.MaxArchiveFiles;
                             LogConfig.LoggingEnabled = Config.Hub.LoggingEnabled;
@@ -184,13 +184,13 @@ namespace SysBot.Pokemon.WinForms
                         }
                         catch (Exception backupEx)
                         {
-                            LogUtil.LogError("Config", $"从备份恢复失败：{backupEx.Message}。正在创建新配置.");
+                            LogUtil.LogError("Config", $"Failed to recover from backup: {backupEx.Message}. Creating new configuration.");
                             CreateNewConfig();
                         }
                     }
                     else
                     {
-                        LogUtil.LogError("Config", "未找到备份文件。正在创建新配置.");
+                        LogUtil.LogError("Config", "No backup file found. Creating new configuration.");
                         CreateNewConfig();
                     }
                 }
@@ -211,7 +211,7 @@ namespace SysBot.Pokemon.WinForms
             UpdateStatusIndicatorColor();
             
             this.ActiveControl = null;
-            LogUtil.LogInfo("System", $"机器人初始化完成");
+            LogUtil.LogInfo("System", $"Bot initialization complete");
             _ = Task.Run(() =>
             {
                 try
