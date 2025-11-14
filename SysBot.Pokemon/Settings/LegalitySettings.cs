@@ -6,6 +6,7 @@ using System.ComponentModel;
 
 namespace SysBot.Pokemon;
 
+[DisplayName("合法性设置")]
 public class LegalitySettings
 {
     private const string Generate = nameof(Generate);
@@ -122,6 +123,7 @@ public class LegalitySettings
     public int Timeout { get; set; } = 15;
 
     [Category(Misc), Description("使用训练家的OT/SID/TID应用有效宝可梦（AutoOT)")]
+
     [DisplayName("是否使用交易伙伴信息")]
     public bool UseTradePartnerInfo { get; set; } = true;
 
