@@ -5,6 +5,7 @@ namespace SysBot.Pokemon;
 
 public class FolderSettings : IDumper
 {
+    [DisplayName("功能开关")]
     private const string FeatureToggle = nameof(FeatureToggle);
 
     private const string Files = nameof(Files);
@@ -18,6 +19,7 @@ public class FolderSettings : IDumper
     public bool Dump { get; set; }
 
     [Category(Files), Description("目标文件夹：所有接收的 PKM 文件都将被转存到此处.")]
+
     [DisplayName("转储文件夹")]
     public string DumpFolder { get; set; } = string.Empty;
 
