@@ -186,7 +186,7 @@ namespace SysBot.Pokemon.WinForms
             contextMenu.Items.Add(new ToolStripSeparator());
 
             // Add recovery status item
-            var recoveryItem = new ToolStripMenuItem("📊 Recovery Status")
+            var recoveryItem = new ToolStripMenuItem("📊 状态恢复")
             {
                 ForeColor = Color.White,
                 BackColor = Color.Transparent,
@@ -195,7 +195,7 @@ namespace SysBot.Pokemon.WinForms
             recoveryItem.Click += ShowRecoveryStatus;
             contextMenu.Items.Add(recoveryItem);
 
-            var remove = new ToolStripMenuItem("╳  Remove Bot")
+            var remove = new ToolStripMenuItem("╳  移除机器人")
             {
                 ForeColor = CuztomRed,
                 BackColor = CuztomDarkBackground,
