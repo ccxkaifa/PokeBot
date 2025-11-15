@@ -13,7 +13,7 @@ public class FolderSettings : IDumper
     [DisplayName("分发文件夹")]
     public string DistributeFolder { get; set; } = string.Empty;
 
-    [Category(FeatureToggle), Description("启用后,会将接收到的所有PKM文件（交易结果）转存到DumpFolder文件夹中.")]
+    [Category(FeatureToggle), Description("功能开关 - 启用后,会将接收到的所有PKM文件（交易结果）转存到DumpFolder文件夹中.")]
     [DisplayName("是否转储交易宝可梦")]
     public bool Dump { get; set; }
 
