@@ -5,7 +5,6 @@ namespace SysBot.Pokemon;
 
 public class FolderSettings : IDumper
 {
-    [DisplayName("功能开关")]
     private const string FeatureToggle = nameof(FeatureToggle);
 
     private const string Files = nameof(Files);
@@ -37,3 +36,4 @@ public class FolderSettings : IDumper
 
     public override string ToString() => "文件夹 / 转储设置";
 }
+
