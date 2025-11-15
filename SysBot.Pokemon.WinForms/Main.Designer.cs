@@ -1122,7 +1122,7 @@ namespace SysBot.Pokemon.WinForms
                 e.Graphics.DrawString(iconText, iconFont, iconBrush, iconX, iconY);
 
                 using var textFont = ScaleFont(new Font("Segoe UI", 7.5F, FontStyle.Regular));
-                var text = "CHECK FOR UPDATES";
+                var text = "检查更新";
 
                 var textSize = e.Graphics.MeasureString(text, textFont);
                 var textX = iconX + iconSize.Width + 5;
